@@ -1,0 +1,12 @@
+import{S as d,i as p}from"./assets/vendor-9310f15c.js";(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))o(e);new MutationObserver(e=>{for(const r of e)if(r.type==="childList")for(const a of r.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&o(a)}).observe(document,{childList:!0,subtree:!0});function n(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerpolicy&&(r.referrerPolicy=e.referrerpolicy),e.crossorigin==="use-credentials"?r.credentials="include":e.crossorigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function o(e){if(e.ep)return;e.ep=!0;const r=n(e);fetch(e.href,r)}})();const l=document.querySelector(".search-form"),u=document.querySelector(".loader"),m=document.querySelector(".gallery"),y="https://pixabay.com/api/",h="41928121-1cda58f07b164a8f6335ccf06",g=document.querySelector(".search-btn");u.style.display="none";l.addEventListener("submit",t=>{t.preventDefault();const s=l.query.value.trim();if(!s){i("The search field can't be empty! Please, enter your request!");return}const n=`${y}?key=${h}&q=${s}&image_type=photo&orientation=horizontal&safesearch=true`;b(n).then(o=>{o.hits.length===0&&(i("Sorry, there are no images matching your search query. Please, try again!"),c(!1)),m.innerHTML=L(o.hits),c(!1),new d(".gallery-item a",{captionsData:"alt",captionDelay:250}),l.reset()}).catch(o=>console.error(o))});function b(t){return c(!0),fetch(t).then(s=>{if(!s.ok)throw new Error(s.ststusText);return s.json()})}function L(t){return t.map(({webformatURL:s,largeImageURL:n,tags:o,likes:e,views:r,comments:a,downloads:f})=>`
+        <li class="gallery-item">
+  <a class="gallery-link" href="${n}">
+    <img
+      class="gallery-image"
+      src="${s}"
+      alt="${o}"
+    />
+    <p class="gallery-descr">Likes: <span class="descr-span">${e}</span> Views: <span class="descr-span">${r}</span> Comments: <span class="descr-span">${a}</span> Downloads: <span class="descr-span">${f}</span></p>
+  </a>
+</li>`).join("")}function i(t){p.show({class:"error-svg",position:"topRight",icon:"error-svg",message:t,maxWidth:"432",messageColor:"#fff",messageSize:"16px",backgroundColor:"#EF4040",close:!1,closeOnClick:!0})}function c(t=!1){u.style.display=t?"inline-block":"none",g.disabled=t}
+//# sourceMappingURL=commonHelpers.js.map
