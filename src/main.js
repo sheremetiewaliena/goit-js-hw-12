@@ -1,5 +1,6 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import refs from './js/refs';
@@ -27,8 +28,8 @@ refs.form.addEventListener('submit', handleSearch);
 
 async function handleSearch(event) {
   event.preventDefault();
-  queryParams.page = 1;
   refs.gallery.innerHTML = '';
+  queryParams.page = 1;
 
   refs.loadMoreBtn.classList.add(hiddenClass);
   queryParams.query = refs.form.query.value.trim();
@@ -40,9 +41,8 @@ async function handleSearch(event) {
     return;
   }
   try {
-    const { hits, total } = await getImages(queryParams);
-    queryParams.maxPage = Math.ceil(total / queryParams.page);
-
+    const { hits, total } = await getImages(queryParams.query);
+    queryParams.maxPage = Math.ceil(total / queryParams.pageSize);
     createMarkup(hits, refs.gallery);
 
     if (hits.length > 0) {
@@ -92,19 +92,21 @@ async function onLoadMore() {
   }
 }
 
-async function getImages(page = 1) {
+async function getImages(query, page = 1) {
   showLoader(true);
-  return axios.get('/', {
-    params: {
-      key: refs.API_KEY,
-      q: queryParams.query,
-      image_type: 'photo',
-      orientation: 'horizontal',
-      safesearch: true,
-      per_page: 15,
-      page,
-    },
-  });
+  return axios
+    .get('/', {
+      params: {
+        key: refs.API_KEY,
+        q: queryParams.query,
+        image_type: 'photo',
+        orientation: 'horizontal',
+        safesearch: true,
+        per_page: 15,
+        page,
+      },
+    })
+    .then(({ data }) => data);
 }
 
 function createMarkup(hits) {
@@ -132,7 +134,6 @@ function createMarkup(hits) {
 </li>`
     )
     .join('');
-
   refs.gallery.insertAdjacentHTML('beforeend', markup);
   simplyGallery.refresh();
 }
