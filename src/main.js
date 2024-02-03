@@ -29,7 +29,7 @@ refs.form.addEventListener('submit', handleSearch);
 async function handleSearch(event) {
   event.preventDefault();
   refs.gallery.innerHTML = '';
-  queryParams.page = 1;
+
   refs.loadMoreBtn.classList.add(hiddenClass);
   queryParams.query = refs.form.query.value.trim();
 
