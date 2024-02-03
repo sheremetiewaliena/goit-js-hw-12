@@ -152,3 +152,31 @@
   font-weight: bold;
   color: #524e4e;
 }
+
+.load-btn {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  width: 125px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #4e75ff;
+  border: none;
+  padding: 0 auto;
+  margin: 0 auto;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.load-btn:hover,
+.load-btn:focus {
+  background-color: #6c8cff;
+}
+
+.load-btn.is-hidden {
+  display: none;
+}
