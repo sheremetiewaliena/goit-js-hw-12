@@ -105,7 +105,6 @@ async function getImages(query, page = 1) {
       page,
     },
   });
-  console.log(result);
   return result.data;
 }
 
