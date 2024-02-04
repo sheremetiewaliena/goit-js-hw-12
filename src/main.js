@@ -94,19 +94,19 @@ async function onLoadMore() {
 
 async function getImages(query, page = 1) {
   showLoader(true);
-  return axios
-    .get('/', {
-      params: {
-        key: refs.API_KEY,
-        q: queryParams.query,
-        image_type: 'photo',
-        orientation: 'horizontal',
-        safesearch: true,
-        per_page: 15,
-        page,
-      },
-    })
-    .then(({ data }) => data);
+  const result = await axios.get('/', {
+    params: {
+      key: refs.API_KEY,
+      q: queryParams.query,
+      image_type: 'photo',
+      orientation: 'horizontal',
+      safesearch: true,
+      per_page: 15,
+      page,
+    },
+  });
+  console.log(result);
+  return result.data;
 }
 
 function createMarkup(hits) {
